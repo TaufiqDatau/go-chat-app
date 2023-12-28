@@ -6,7 +6,7 @@ socket.onopen = (event) => {
 
 socket.onmessage = (event) => {
     const message = JSON.parse(event.data);
-    displayMessage(message.Sender, message.Content);
+    displayMessage(message.sender, message.content);
 };
 
 socket.onclose = (event) => {
@@ -22,10 +22,10 @@ function sendMessage() {
         input.value = "";
     }
 }
-
-function displayMessage(sender, content) {
+function displayMessage(sender,content) {
     const chatBox = document.getElementById("chat-box");
     const messageElement = document.createElement("div");
-    messageElement.innerHTML = `<strong>${sender}:</strong> ${content}`;
+    const parsedMessage = JSON.parse(content);
+    messageElement.innerHTML = `<strong>${sender}:</strong> ${parsedMessage.Content}`;
     chatBox.appendChild(messageElement);
 }
